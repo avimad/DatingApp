@@ -4,6 +4,7 @@ using DatingApp.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using DatingApp.API.Dtos;
 
+
 namespace DatingApp.API.Controllers
 {
     [Route("api/[controller]")]
@@ -34,6 +35,18 @@ namespace DatingApp.API.Controllers
             return StatusCode(201);
 
 
+        }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login (UserForLoginDto userForLoginDto){
+            
+            var userFromRepo = await _repo.Login(userForLoginDto.Username, userForLoginDto.Password);
+            if(userFromRepo == null)
+               retun Unaithorized();
+
+            var Claims = new[]
+            {
+              new Claim()
+            }  
         }
     }
 }
